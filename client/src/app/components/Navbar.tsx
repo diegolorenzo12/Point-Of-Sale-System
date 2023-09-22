@@ -27,8 +27,8 @@ export default function Navbar() {
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-        <Image src={mangoLogo} alt='MyLogo' width={500} height={300}/>
-          <p className="font-bold text-inherit">Mango Lavanda</p>
+        <Image src={mangoLogo} alt='MyLogo' width={30} height={30}/>
+          <p className="font-bold text-inherit ml-5">Mango Lavanda</p>
         </NavbarBrand>
       </NavbarContent>
 
