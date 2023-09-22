@@ -8,17 +8,43 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Link,
-  Button
+  Button,
+  Avatar
 } from "@nextui-org/react";
 import Image from 'next/image';
+import { useState } from 'react';
 import mangoLogo from "../assets/MangoLavandaLogo.png"
 
 export default function Navbar() {
+  const [loggedIn, setLoggedIn] = useState(true);
     const menuItems = [
         "Sell",
         "Edit Items",
         "Statistics",
     ];
+
+    let showLogin = (
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex">
+            <Link href="#">Login</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Button as={Link} color="warning" href="#" variant="flat">
+              Sign Up
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+      );
+
+    if(loggedIn){
+      showLogin= (
+      <NavbarContent justify="end">
+           <Avatar name="Lorenzo" isBordered color="primary"></Avatar>
+        </NavbarContent>
+
+      )
+    }
+
   return (
     <NavbarUi>
         <NavbarContent className="sm:hidden" justify="start">
@@ -52,16 +78,7 @@ export default function Navbar() {
         ))}
       </NavbarContent>
 
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+      {showLogin}
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
