@@ -18,9 +18,18 @@ import mangoLogo from "../assets/MangoLavandaLogo.png"
 export default function Navbar() {
   const [loggedIn, setLoggedIn] = useState(true);
     const menuItems = [
-        "Sell",
-        "Edit Items",
-        "Statistics",
+      {
+        name: "sell",
+        route: "/sell"
+      },
+       {
+        name: "Edit Items",
+        route: "/edit"
+      },
+       {
+        name: "Statistics",
+        route: "/statistics"
+      }
     ];
 
     let showLogin = (
@@ -60,8 +69,13 @@ export default function Navbar() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
-          <Image src={mangoLogo} alt='MyLogo' width={30} height={30}/>
-          <p className="font-bold text-inherit ml-5">Mango Lavanda</p>
+          <Link 
+            color='foreground'
+            href='/'
+            >
+            <Image src={mangoLogo} alt='MyLogo' width={30} height={30}/>
+            <p className="font-bold text-inherit ml-5">Mango Lavanda</p>
+          </Link>
         </NavbarBrand>
 
         {menuItems.map((item, index) => (
@@ -69,10 +83,10 @@ export default function Navbar() {
             <Link
               className="w-full"
               color="foreground"
-              href="#"
+              href={item.route}
               size="lg"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarItem>
         ))}
