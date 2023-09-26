@@ -16,10 +16,10 @@ import { useState } from 'react';
 import mangoLogo from "../assets/MangoLavandaLogo.png"
 
 export default function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
     const menuItems = [
       {
-        name: "sell",
+        name: "Sell",
         route: "/sell"
       },
        {

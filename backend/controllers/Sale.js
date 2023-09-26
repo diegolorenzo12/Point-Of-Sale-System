@@ -1,24 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const Products = require("../models/products");
+const Sale = require("../models/sale");
 
 router.get("/", (req, res) => {
-  //products logic
+  //users logic
   res.send({ data: "some data" });
 });
 
 router.post("/", (req, res) => {
-  //products logic
+  //users logic
   res.send({ data: "some data" });
 });
 
 router.patch("/", (req, res) => {
-  //products logic
+  //users logic
   res.send({ data: "some data" });
 });
 
 router.delete("/", (req, res) => {
-  //products logic
+  //users logic
   res.send({ data: "some data" });
 });
 

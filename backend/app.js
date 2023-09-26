@@ -5,9 +5,10 @@ require("dotenv").config();
 //Import controllers
 const userRoute = require("./controllers/Users");
 const productRoute = require("./controllers/Products");
+const saleRoute = require("./controllers/Sale");
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 //Connect to DB
 const db = process.env.ATLAS_URI;
@@ -15,6 +16,7 @@ mongoose.connect(db, { useNewUrlParser: true });
 
 app.use("/user", userRoute);
 app.use("/products", productRoute);
+app.use("/sales", saleRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
