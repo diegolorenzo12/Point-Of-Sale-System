@@ -12,5 +12,4 @@ const saleItemSchema = new Schema({
   },
 });
 
-const SaleItem = mongoose.model("SaleItem", saleItemSchema);
-module.exports = SaleItem;
+module.exports = saleItemSchema;

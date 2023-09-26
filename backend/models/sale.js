@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const saleItemSchema = require("../models/saleItem");
 const Schema = mongoose.Schema;
 
 const saleSchema = new Schema({
