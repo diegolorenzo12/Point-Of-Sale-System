@@ -11,7 +11,7 @@ export default function page() {
             aqui va la calculando la suma
         </div>
         <div className="flex w-full flex-col">
-            <Tabs aria-label="Dynamic tabs">
+            <Tabs aria-label="Dynamic tabs" variant='light'>
                 <Tab key={1} title="Frutas y Verduras">
                     <Frutas/>
                 </Tab>
