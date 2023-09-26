@@ -7,7 +7,7 @@ const userRoute = require("./controllers/Users");
 const productRoute = require("./controllers/Products");
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 //Connect to DB
 const db = process.env.ATLAS_URI;
