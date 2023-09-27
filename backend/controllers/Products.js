@@ -18,6 +18,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const products = await Products.findById(req.params.id);
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { name, price, category, description, brand, stock } = req.body;
