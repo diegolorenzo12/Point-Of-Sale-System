@@ -14,6 +14,7 @@ const port = 3001;
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, { useNewUrlParser: true });
 
+app.use(express.json());
 app.use("/api/user", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/sales", saleRoute);

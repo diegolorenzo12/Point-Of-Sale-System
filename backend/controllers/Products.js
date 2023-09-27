@@ -91,9 +91,34 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-router.patch("/", (req, res) => {
-  //products logic
-  res.send({ data: "some data" });
+//update by json body
+router.patch("/:id", async (req, res) => {
+  try {
+    const updateParams = req.body;
+    if (!updateParams) {
+      return res
+        .status(400)
+        .json({
+          error: "Provide a json with params to update in query params",
+        });
+    }
+    const updatedProduct = await Products.findByIdAndUpdate(
+      req.params.id,
+      { $set: updateParams },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    res.status(500).send({
+      message: "Error changing stock of product",
+      error: error.message,
+    });
+  }
 });
 
 router.delete("/:id", async (req, res) => {
