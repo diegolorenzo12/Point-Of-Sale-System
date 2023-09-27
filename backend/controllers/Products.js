@@ -11,7 +11,17 @@ const upload = multer({ storage: storage });
 
 router.get("/", async (req, res) => {
   try {
-    const products = await Products.find();
+    let query = {};
+    if (req.query.category) {
+      query.category = new RegExp(req.query.category, "i"); //regex i for case insensitive
+    }
+    if (req.query.description) {
+      query.description = new RegExp(req.query.description, "i"); //regex i for case insensitive
+    }
+    if (req.query.name) {
+      query.description = new RegExp(req.query.name, "i"); //regex i for case insensitive
+    }
+    const products = await Products.find(query);
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch products" });
