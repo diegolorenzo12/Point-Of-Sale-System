@@ -14,9 +14,9 @@ const port = 3001;
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, { useNewUrlParser: true });
 
-app.use("/user", userRoute);
-app.use("/products", productRoute);
-app.use("/sales", saleRoute);
+app.use("/api/user", userRoute);
+app.use("/api/products", productRoute);
+app.use("/api/sales", saleRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
