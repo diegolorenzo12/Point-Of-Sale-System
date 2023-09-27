@@ -4,6 +4,7 @@ const Products = require("../models/products");
 const multer = require("multer");
 const containerClient = require("../containerClient");
 const { v4: uuidv4 } = require("uuid");
+const util = require("../util");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -53,6 +54,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       name: name,
       price: price,
       imageUrl: imageUrl,
+      imageName: blobName,
       category: category,
       description: description,
       stock: stock,
@@ -75,9 +77,27 @@ router.patch("/", (req, res) => {
   res.send({ data: "some data" });
 });
 
-router.delete("/", (req, res) => {
-  //products logic
-  res.send({ data: "some data" });
+router.delete("/:id", async (req, res) => {
+  try {
+    // Fetch the product from the database
+    const product = await Products.findById(req.params.id);
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+
+    // Delete the image from Azure Blob Storage
+    const blobName = product.imageName; // Assuming the product has an imageName field storing the blob name
+    await util.deleteBlobFromAzure(blobName);
+    // Delete the product from the database
+    await Products.findByIdAndDelete(req.params.id);
+
+    res.status(200).send({ message: "Product and image deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send({ message: "Error deleting product", error: error.message });
+  }
 });
 
 module.exports = router;
