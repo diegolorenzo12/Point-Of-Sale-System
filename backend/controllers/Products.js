@@ -9,6 +9,7 @@ const util = require("../util");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+//get products
 router.get("/", async (req, res) => {
   try {
     let query = {};
@@ -21,13 +22,20 @@ router.get("/", async (req, res) => {
     if (req.query.name) {
       query.description = new RegExp(req.query.name, "i"); //regex i for case insensitive
     }
-    const products = await Products.find(query);
+    let productsQuery = Products.find(query);
+    if (req.query.limit) {
+      productsQuery = productsQuery.limit(parseInt(req.query.limit));
+    }
+
+    const products = await productsQuery.exec();
     res.json(products);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
 
+//get product by Id
 router.get("/:id", async (req, res) => {
   try {
     const products = await Products.findById(req.params.id);
@@ -37,6 +45,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//create a new product
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { name, price, category, description, brand, stock } = req.body;
@@ -96,11 +105,9 @@ router.patch("/:id", async (req, res) => {
   try {
     const updateParams = req.body;
     if (!updateParams) {
-      return res
-        .status(400)
-        .json({
-          error: "Provide a json with params to update in query params",
-        });
+      return res.status(400).json({
+        error: "Provide a json with params to update in query params",
+      });
     }
     const updatedProduct = await Products.findByIdAndUpdate(
       req.params.id,
