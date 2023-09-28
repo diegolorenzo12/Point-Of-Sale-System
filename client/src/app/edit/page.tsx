@@ -56,6 +56,7 @@ const handleSubmit = async () => {
       stock: '',
     });
     setFile(null);
+    window.alert('Product added successfully!');
 
   } catch (error) {
     // Handle errors here
