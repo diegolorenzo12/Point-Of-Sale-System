@@ -15,6 +15,8 @@ type ItemType = {
     value: number;
 };
 
+
+//this values should be fetch from api
 const frutasDommy: ItemType[]=[
     {
         img:frutas,
@@ -25,13 +27,38 @@ const frutasDommy: ItemType[]=[
         img:masFrutas,
         name: "Fruta2",
         value: 15
+    },
+        {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
+    },
+        {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
+    },
+        {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
+    },
+        {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
+    },
+        {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
     }
 ];
 
-export default function Frutas({cuenta, setCuenta}: {cuenta:CuentaItem[], setCuenta:React.Dispatch<React.SetStateAction<CuentaItem[]>> }) {
+export default function TabItem({cuenta, setCuenta, category}: {cuenta:CuentaItem[], setCuenta:React.Dispatch<React.SetStateAction<CuentaItem[]>>, category:String }) {
     
     return (
-    <div className='flex flex-row'>
+    <div className='flex flex-row flex-wrap'>
         {frutasDommy.map((item, index) => (
         <Card
           key={index}
