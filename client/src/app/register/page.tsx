@@ -24,6 +24,7 @@ export default function Regiser() {
 
         console.log('Registration successful:', response.data);
         Cookies.set('jwtToken', response.data.token, { expires: 7 }); 
+        axios.defaults.withCredentials = true;
         router.push('/sell'); 
             
 
