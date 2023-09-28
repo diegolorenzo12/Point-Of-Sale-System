@@ -3,20 +3,32 @@ import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
 import Image from 'next/image';
-
+import axios from 'axios';
 
 export default function Regiser() {
     const [email, setEmail] = useState('');
-    const [nip, setNip] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
-  const handleRegister = () => {
-    if (nip.length > 4 || password.length > 4) {
-      console.error('El NIP y la contraseña no deben exceder los 4 caracteres');
-      return;
+  const handleRegister = async () => {
+    try {
+        const data = {
+            email: email,
+            password: password,
+            name: name, 
+        };
+        const response = await axios.post('http://localhost:3001/api/auth/signup',data);
+
+        // Handle the response as needed
+            console.log('Registration successful:', response.data);
+            
+            // You can also redirect the user or perform other actions here
+
+    } catch (error) {
+        // Handle errors
+        console.error('Registration failed:', error);
     }
 
-    console.log('NIP:', nip, 'Contraseña:', password);  // Aquí puedes manejar el inicio de sesión como necesites
   };
 
   return (
@@ -32,17 +44,15 @@ export default function Regiser() {
         <Input 
           size="large" 
           placeholder="Email" 
-          value={nip} 
-          onChange={(e) => setNip(e.target.value)} 
-          maxLength={4} 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
           className="mb-5"
         />
         <Input 
           size="large" 
           placeholder="Name" 
-          value={nip} 
-          onChange={(e) => setNip(e.target.value)} 
-          maxLength={4} 
+          value={name} 
+          onChange={(e) => setName(e.target.value)} 
           className="mb-5"
         />
         
@@ -52,7 +62,6 @@ export default function Regiser() {
           placeholder="Password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
-          maxLength={4} 
           className="mb-5"
         />
         
