@@ -1,7 +1,8 @@
 'use client'
 import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
-import logo from '../assets/MangoLavandaLogo.png';  // Asegúrate de que la ruta sea correcta
+import logo from "../assets/MangoLavandaLogo.png";
+import Image from 'next/image';
 
 const Login = () => {
   const [nip, setNip] = useState('');
@@ -24,8 +25,8 @@ const Login = () => {
       height: '100vh',
       backgroundColor: '#f0f0f0'
     }}>
-      <div style={{ maxWidth: '400px', padding: '20px', backgroundColor: 'white', borderRadius: '5px' }}>
-        <img src={logo} alt="Logo" style={{ display: 'block', margin: '0 auto 20px auto', maxWidth: '100%' }} />
+      <div className='rounded drop-shadow-lg' style={{ maxWidth: '400px', padding: '20px', backgroundColor: 'white', borderRadius: '5px' }}>
+        <Image src={logo} alt="Logo" style={{ display: 'block', margin: '0 auto 20px auto', maxWidth: '100%' }} />
         
         <Input 
           size="large" 
@@ -33,7 +34,7 @@ const Login = () => {
           value={nip} 
           onChange={(e) => setNip(e.target.value)} 
           maxLength={4} 
-          style={{ marginBottom: '20px', width: '100%' }}
+          className="mb-5"
         />
         
         <Input 
@@ -43,7 +44,7 @@ const Login = () => {
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           maxLength={4} 
-          style={{ marginBottom: '20px', width: '100%' }}
+          className="mb-5"
         />
         
         <Button 
