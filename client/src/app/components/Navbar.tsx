@@ -35,7 +35,7 @@ export default function Navbar() {
     let showLogin = (
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
+            <Link href="/login">Login</Link>
           </NavbarItem>
           <NavbarItem>
             <Button as={Link} color="warning" href="#" variant="flat">
