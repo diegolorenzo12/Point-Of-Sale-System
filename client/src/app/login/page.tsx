@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
+import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { useRouter } from "next/navigation"
 import axios from 'axios';
 
 const Login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,13 +20,11 @@ const Login = () => {
         };
         const response = await axios.post('http://localhost:3001/api/auth/login',data);
 
-        // Handle the response as needed
-            console.log('Registration successful:', response.data);
-            
-            // You can also redirect the user or perform other actions here
-
+        Cookies.set('jwtToken', response.data.token, { expires: 7 }); 
+        router.push('/sell'); 
     } catch (error) {
         // Handle errors
+        window.alert("incorrect")   
         console.error('Registration failed:', error);
     }
 

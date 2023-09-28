@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
 import Image from 'next/image';
+import { useRouter } from "next/navigation"
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export default function Regiser() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -19,13 +22,13 @@ export default function Regiser() {
         };
         const response = await axios.post('http://localhost:3001/api/auth/signup',data);
 
-        // Handle the response as needed
-            console.log('Registration successful:', response.data);
+        console.log('Registration successful:', response.data);
+        Cookies.set('jwtToken', response.data.token, { expires: 7 }); 
+        router.push('/sell'); 
             
-            // You can also redirect the user or perform other actions here
 
     } catch (error) {
-        // Handle errors
+        window.alert("error")  
         console.error('Registration failed:', error);
     }
   };
