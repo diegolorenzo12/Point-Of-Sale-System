@@ -29,6 +29,10 @@ export default function Navbar() {
        {
         name: "Statistics",
         route: "/statistics"
+      },
+       {
+        name: "Sold",
+        route: "/sold"
       }
     ];
 
