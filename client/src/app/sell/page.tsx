@@ -37,6 +37,12 @@ export default function page() {
         }
     });
 
+    const handleBuy = ()=>{
+        //add logic to call buy api
+        //if logic succesfull clear
+        setCuenta([])
+    }
+
     return (
         <main className='flex flex-row'>
             <div className='flex flex-col w-1/4 m-7'>
@@ -52,8 +58,8 @@ export default function page() {
                 <div className='m-5 flex flex-col items-center'>
                     <h3 className='text-xl font-semibold'>{sumOfValues} Mx</h3>
                     <div className='flex flex-row w-full justify-evenly mt-7'>
-                        <Button color='success'>Buy</Button>
-                        <Button color="danger">Cancel</Button>
+                        <Button color='success' onPress={()=>handleBuy()}>Buy</Button>
+                        <Button color="danger" onPress={()=>setCuenta([])}>Cancel</Button>
                     </div>
                 </div>
             </div>
