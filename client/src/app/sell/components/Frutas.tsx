@@ -15,20 +15,20 @@ type ItemType = {
     value: number;
 };
 
+const frutasDommy: ItemType[]=[
+    {
+        img:frutas,
+        name: "Fruta",
+        value: 10
+    },
+    {
+        img:masFrutas,
+        name: "Fruta2",
+        value: 15
+    }
+];
+
 export default function Frutas({cuenta, setCuenta}: {cuenta:CuentaItem[], setCuenta:React.Dispatch<React.SetStateAction<CuentaItem[]>> }) {
-    
-    const frutasDommy: ItemType[]=[
-        {
-            img:frutas,
-            name: "Fruta",
-            value: 10
-        },
-        {
-            img:masFrutas,
-            name: "Fruta2",
-            value: 15
-        }
-    ];
     
     return (
     <div className='flex flex-row'>
@@ -37,7 +37,10 @@ export default function Frutas({cuenta, setCuenta}: {cuenta:CuentaItem[], setCue
           key={index}
           shadow="sm"
           isPressable
-          onPress={() => console.log("item pressed")}
+          onPress={() => {setCuenta( [...cuenta, {
+            name: item.name,
+            value: item.value
+          }])}}
         >
           <CardBody className="overflow-visible p-0">
             <Image

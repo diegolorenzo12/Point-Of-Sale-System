@@ -25,13 +25,27 @@ export default function page() {
     ]
     const [cuenta, setCuenta] = useState< CuentaItem[] >(cuentaInicial);
     const sumOfValues = cuenta.reduce((total, item) => total + item.value, 0);
+    const itemMap = new Map<string, { sum: number; count: number }>();
+
+    cuenta.forEach((item) => {
+        if (itemMap.has(item.name)) {
+            const existingItem = itemMap.get(item.name)!;
+            existingItem.sum += item.value;
+            existingItem.count += 1;
+        } else {
+            itemMap.set(item.name, { sum: item.value, count: 1 });
+        }
+    });
+
     return (
         <main className='flex flex-row'>
             <div className='flex flex-col w-1/4 m-7'>
-                {cuenta.map((item, index) => (
+               {Array.from(itemMap).map(([name, { sum, count }], index) => (
                     <div className="flex flex-row justify-between" key={index}>
-                    <p className="font-bold">{item.name}</p>
-                    <p>{item.value}</p>
+                    <p className="font-bold">
+                        ({count}x) {name} 
+                    </p>
+                    <p>{sum}</p>
                     </div>
                 ))}
                 <Divider></Divider>
@@ -46,7 +60,7 @@ export default function page() {
             <div className="flex flex-col w-3/4 m-7">
                 <Tabs aria-label="Dynamic tabs" variant='solid'>
                         <Tab key={1} title="Frutas y Verduras">
-                            <Frutas/>
+                            <Frutas cuenta={cuenta} setCuenta={setCuenta}/>
                         </Tab>
                     <Tab key={2} title="Carnes">
                         <Carne/>
