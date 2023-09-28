@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const authMiddleware = require("./middlewares/authMiddleware");
 require("dotenv").config();
 
 //Import controllers
@@ -16,11 +18,18 @@ const port = 3001;
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, { useNewUrlParser: true });
 
-app.use(cors());
+app.use(cookieParser());
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use("/api/user", userRoute);
-app.use("/api/products", productRoute);
-app.use("/api/sales", saleRoute);
+app.use("/api/user", authMiddleware(), userRoute);
+app.use("/api/products", authMiddleware(), productRoute);
+app.use("/api/sales", authMiddleware(), saleRoute);
 app.use("/api/auth", authRoute);
 
 app.listen(port, () => {

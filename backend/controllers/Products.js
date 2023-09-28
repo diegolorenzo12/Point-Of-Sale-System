@@ -4,6 +4,7 @@ const Products = require("../models/products");
 const multer = require("multer");
 const containerClient = require("../containerClient");
 const { v4: uuidv4 } = require("uuid");
+const authMiddleware = require("../middlewares/authMiddleware");
 const util = require("../util");
 
 const storage = multer.memoryStorage();
