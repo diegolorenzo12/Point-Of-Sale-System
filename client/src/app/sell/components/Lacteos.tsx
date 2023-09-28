@@ -4,7 +4,13 @@ import Image from 'next/image'
 import frutas from "../../assets/Fruit-HD-Wallpapers-03484.jpg"
 import masFrutas from "../../assets/GM-White-Page-214.jpg"
 
-export default function Lacteos() {
+type CuentaItem = {
+    name: string;
+    value: number;
+};
+
+
+export default function Lacteos({cuenta, setCuenta}: {cuenta:CuentaItem[], setCuenta:React.Dispatch<React.SetStateAction<CuentaItem[]>> }) {
   return (
     <div className='flex flex-row'>
         <Card shadow="sm" isPressable onPress={() => console.log("item pressed")}>
