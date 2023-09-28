@@ -6,17 +6,32 @@ import Carne from "./components/Carne";
 import Lacteos from "./components/Lacteos"
 
 export default function page() {
-    const [cuenta, setCuenta] = useState([]);
+
+    //should get this values from api
+    const cuentaInicial = [
+        {
+            name: "coffe",
+            value: 100
+        },
+        {
+            name: "coffe1",
+            value: 103
+        }
+    ]
+    const [cuenta, setCuenta] = useState(cuentaInicial);
+    const sumOfValues = cuenta.reduce((total, item) => total + item.value, 0);
     return (
         <main className='flex flex-row'>
             <div className='flex flex-col w-1/4 m-7'>
-                <div className='flex flex-row justify-between'>
-                    <p className='font-bold'>Coffee</p>
-                    <p>100</p>
-                </div>
+                {cuenta.map((item, index) => (
+                    <div className="flex flex-row justify-between" key={index}>
+                    <p className="font-bold">{item.name}</p>
+                    <p>{item.value}</p>
+                    </div>
+                ))}
                 <Divider></Divider>
                 <div className='m-5 flex flex-col items-center'>
-                    <h3 className='text-xl font-semibold'>{100} Mx</h3>
+                    <h3 className='text-xl font-semibold'>{sumOfValues} Mx</h3>
                     <div className='flex flex-row w-full justify-evenly mt-7'>
                         <Button color='success'>Buy</Button>
                         <Button color="danger">Cancel</Button>
