@@ -19,7 +19,7 @@ const Login = () => {
             password: password,
         };
         const response = await axios.post('http://localhost:3001/api/auth/login',data);
-
+        axios.defaults.withCredentials = true;
         Cookies.set('jwtToken', response.data.token, { expires: 7 }); 
         router.push('/sell'); 
     } catch (error) {

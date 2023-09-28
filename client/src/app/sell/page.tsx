@@ -9,6 +9,7 @@ type CuentaItem = {
     name: string;
     value: number;
 };
+axios.defaults.withCredentials = true;
 
 export default function page() {
     const [cuenta, setCuenta] = useState< CuentaItem[] >([]);
@@ -38,6 +39,7 @@ export default function page() {
       employeeId: employeeId,
       items: items,
     };
+
     const response = await axios.post('http://localhost:3001/api/sales', requestBody);
 
     if (response.status === 201) {
