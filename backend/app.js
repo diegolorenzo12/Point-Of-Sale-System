@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -15,6 +16,7 @@ const port = 3001;
 const db = process.env.ATLAS_URI;
 mongoose.connect(db, { useNewUrlParser: true });
 
+app.use(cors());
 app.use(express.json());
 app.use("/api/user", userRoute);
 app.use("/api/products", productRoute);

@@ -46,10 +46,14 @@ router.get("/:id", async (req, res) => {
 });
 
 //create a new product
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
   try {
-    const { name, price, category, description, brand, stock } = req.body;
-
+    const name = req.body.name;
+    const price = req.body.price;
+    const category = req.body.category;
+    const description = req.body.description;
+    const brand = req.body.brand;
+    const stock = req.body.stock;
     if (
       !name ||
       !price ||
