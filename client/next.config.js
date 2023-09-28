@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
 
-module.exports = nextConfig
+module.exports = {
+  images: {
+    domains: ["mangolavandaproyect.blob.core.windows.net"],
+  },
+};
