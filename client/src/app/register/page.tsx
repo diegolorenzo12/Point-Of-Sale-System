@@ -28,7 +28,6 @@ export default function Regiser() {
         // Handle errors
         console.error('Registration failed:', error);
     }
-
   };
 
   return (
