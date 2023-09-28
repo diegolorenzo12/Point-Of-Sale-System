@@ -6,11 +6,13 @@ import masFrutas from "../../assets/GM-White-Page-214.jpg"
 import axios from 'axios';
 
 type CuentaItem = {
+    _id: string;
     name: string;
     value: number;
 };
 
 type ItemType = {
+    _id: string;
     img: string;
     name: string;
     value: number;
@@ -29,6 +31,7 @@ export default function TabItem({cuenta, setCuenta, category}: {cuenta:CuentaIte
       .then((response) => {
         // Map the API response to match the ItemType structure
         const mappedData: ItemType[] = response.data.map((item: any) => ({
+          _id: item._id,
           img: item.imageUrl,
           name: item.name,
           value: item.price, // Assuming 'price' is the value you want to display
@@ -51,6 +54,7 @@ export default function TabItem({cuenta, setCuenta, category}: {cuenta:CuentaIte
           shadow="sm"
           isPressable
           onPress={() => {setCuenta( [...cuenta, {
+            _id: item._id,
             name: item.name,
             value: item.value
           }])}}

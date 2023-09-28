@@ -2,30 +2,19 @@
 import React, {useState} from 'react'
 import {Tabs, Tab, Button, Divider} from "@nextui-org/react";
 import TabItem from './components/TabItem';
+import axios from 'axios';
 
 type CuentaItem = {
+    _id: string;
     name: string;
     value: number;
 };
 
 export default function page() {
-
-    //should get this values from api
-    const cuentaInicial: CuentaItem[] = [
-        {
-            name: "coffe",
-            value: 100
-        },
-        {
-            name: "coffe1",
-            value: 103
-        }
-    ]
-
-
-    const [cuenta, setCuenta] = useState< CuentaItem[] >(cuentaInicial);
+    const [cuenta, setCuenta] = useState< CuentaItem[] >([]);
     const sumOfValues = cuenta.reduce((total, item) => total + item.value, 0);
-    const itemMap = new Map<string, { sum: number; count: number }>();
+    const itemMap = new Map<string, { sum: number; count: number; id: string }>();
+
 
     cuenta.forEach((item) => {
         if (itemMap.has(item.name)) {
@@ -33,15 +22,35 @@ export default function page() {
             existingItem.sum += item.value;
             existingItem.count += 1;
         } else {
-            itemMap.set(item.name, { sum: item.value, count: 1 });
+            itemMap.set(item.name, { sum: item.value, count: 1, id: item._id });
         }
     });
 
-    const handleBuy = ()=>{
-        //add logic to call buy api
-        //if logic succesfull clear
-        setCuenta([])
+    const handleBuy = async () => {
+  try {
+    const employeeId = "employee_id_here"; // Should get from login
+    const items = cuenta.map((item) => ({
+      product: item._id, 
+      quantity: item.value, 
+    }));
+
+    const requestBody = {
+      employeeId: employeeId,
+      items: items,
+    };
+    const response = await axios.post('http://localhost:3001/api/sales', requestBody);
+
+    if (response.status === 201) {
+      setCuenta([]);
+      console.log('Sale created successfully');
+    } else {
+      console.error('Error creating sale:', response.statusText);
     }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 
     return (
         <main className='flex flex-row'>
