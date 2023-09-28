@@ -4,11 +4,13 @@ import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
 import Image from 'next/image';
 
-const Login = () => {
-  const [nip, setNip] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+export default function Regiser() {
+    const [email, setEmail] = useState('');
+    const [nip, setNip] = useState('');
+    const [password, setPassword] = useState('');
+
+  const handleRegister = () => {
     if (nip.length > 4 || password.length > 4) {
       console.error('El NIP y la contraseña no deben exceder los 4 caracteres');
       return;
@@ -25,12 +27,19 @@ const Login = () => {
       height: '100vh',
       backgroundColor: '#f0f0f0'
     }}>
-      <div className='rounded drop-shadow-lg' style={{ maxWidth: '400px', padding: '20px', backgroundColor: 'white', borderRadius: '5px' }}>
+      <div className='rounded drop-shadow-lg bg-white p-[20px]'>
         <Image src={logo} alt="Logo" style={{ display: 'block', margin: '0 auto 20px auto', maxWidth: '100%' }} />
-        
         <Input 
           size="large" 
-          placeholder="NIP" 
+          placeholder="Email" 
+          value={nip} 
+          onChange={(e) => setNip(e.target.value)} 
+          maxLength={4} 
+          className="mb-5"
+        />
+        <Input 
+          size="large" 
+          placeholder="Name" 
           value={nip} 
           onChange={(e) => setNip(e.target.value)} 
           maxLength={4} 
@@ -40,7 +49,7 @@ const Login = () => {
         <Input 
           size="large" 
           type="password" 
-          placeholder="Contraseña" 
+          placeholder="Password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
           maxLength={4} 
@@ -50,13 +59,11 @@ const Login = () => {
         <Button 
           block 
           size="large" 
-          onClick={handleLogin}
+          onClick={handleRegister}
         >
-          Login
+          Register
         </Button>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
