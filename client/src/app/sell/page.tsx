@@ -5,10 +5,15 @@ import Frutas from './components/Frutas';
 import Carne from "./components/Carne";
 import Lacteos from "./components/Lacteos"
 
+type CuentaItem = {
+    name: string;
+    value: number;
+};
+
 export default function page() {
 
     //should get this values from api
-    const cuentaInicial = [
+    const cuentaInicial: CuentaItem[] = [
         {
             name: "coffe",
             value: 100
@@ -18,7 +23,7 @@ export default function page() {
             value: 103
         }
     ]
-    const [cuenta, setCuenta] = useState(cuentaInicial);
+    const [cuenta, setCuenta] = useState< CuentaItem[] >(cuentaInicial);
     const sumOfValues = cuenta.reduce((total, item) => total + item.value, 0);
     return (
         <main className='flex flex-row'>
