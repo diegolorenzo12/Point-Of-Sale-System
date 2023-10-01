@@ -56,7 +56,6 @@ export default function page() {
 
     return (
         <ProtectedRoute>
-
             <main className='flex flex-row'>
                 <div className='flex flex-col w-1/4 m-7'>
                 {Array.from(itemMap).map(([name, { sum, count }], index) => (

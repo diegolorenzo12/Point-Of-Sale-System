@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import {NextUIProvider} from "@nextui-org/react";
 import Navbar from './components/Navbar';
 import axios from 'axios';
+import { UserProvider } from './context/UserContext';
 
 const inter = Inter({ subsets: ['latin'] })
 axios.defaults.withCredentials = true;
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           <NextUIProvider>
-            <Navbar/>
-            {children}
+            <UserProvider>
+              <Navbar/>
+              {children}
+            </UserProvider>
           </NextUIProvider>
         </body>
       </html>

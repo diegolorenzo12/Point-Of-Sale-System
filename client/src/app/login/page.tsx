@@ -27,7 +27,6 @@ const Login = () => {
         window.alert("incorrect")   
         console.error('Registration failed:', error);
     }
-
   };
 
   return (
