@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie"
 import Image from 'next/image';
 import { useRouter } from "next/navigation"
 import axios from 'axios';
