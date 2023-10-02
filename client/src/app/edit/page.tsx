@@ -17,15 +17,30 @@ export default function page() {
 
     // File input state
   const [file, setFile] = useState(null);
+  const [fileText, setFileText] = useState('Drag \'n\' drop some files here, or click to select files');
+
 
   const handleInputChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
   };
+  
+
   console.log(formData)
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+
+
+  const handleFileChange = (acceptedFiles) => {
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      const selectedFile = acceptedFiles[0];
+      const acceptedFileTypes = ['image/jpeg', 'image/png'];
+
+      if (acceptedFileTypes.includes(selectedFile.type)) {
+        setFile(selectedFile);
+        setFileText(selectedFile.name); 
+      } else {
+        setFileText('Invalid file type. Please select a JPEG or PNG file.');
+      }
+    }
   };
 
   const handleSubmit = async () => {
@@ -67,7 +82,7 @@ export default function page() {
 
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: handleFileChange,
+    onDrop: (acceptedFiles) => handleFileChange(acceptedFiles),
     accept: 'image/jpeg, image/png',
   });
 
@@ -137,8 +152,8 @@ export default function page() {
             className="border-dashed border-2 border-gray-300 p-4 text-center cursor-pointer hover:border-gray-500 active:border-gray-700"
             {...getRootProps()}
           >
-            <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <input {...getInputProps() } accept="image/jpeg, image/png"/>
+            <p>{fileText}</p>
           </div>
           <Button className='mt-5' color='primary' onPress={handleSubmit}>Add</Button>
         </div>
@@ -146,3 +161,4 @@ export default function page() {
     </ProtectedRoute>
   )
 }
+
