@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {Tabs, Tab, Button, Divider} from "@nextui-org/react";
 import TabItem from './components/TabItem';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 type CuentaItem = {
@@ -16,7 +17,7 @@ export default function page() {
     const [cuenta, setCuenta] = useState< CuentaItem[] >([]);
     const sumOfValues = cuenta.reduce((total, item) => total + item.value, 0);
     const itemMap = new Map<string, { sum: number; count: number; id: string }>();
-
+    const router = useRouter();
 
     cuenta.forEach((item) => {
         if (itemMap.has(item.name)) {
@@ -53,9 +54,10 @@ export default function page() {
             console.error('Error:', error);
         }
     };
+    
 
     return (
-        <ProtectedRoute>
+        <ProtectedRoute router={router}>
             <main className='flex flex-row'>
                 <div className='flex flex-col w-1/4 m-7'>
                 {Array.from(itemMap).map(([name, { sum, count }], index) => (

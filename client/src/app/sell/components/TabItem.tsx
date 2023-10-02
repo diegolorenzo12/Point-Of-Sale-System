@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Card, CardBody, CardFooter, button } from '@nextui-org/react'
 import Image, { StaticImageData } from 'next/image'
-import frutas from "../../assets/Fruit-HD-Wallpapers-03484.jpg"
-import masFrutas from "../../assets/GM-White-Page-214.jpg"
 import axios from 'axios';
 
 type CuentaItem = {
@@ -66,6 +64,7 @@ export default function TabItem({cuenta, setCuenta, category}: {cuenta:CuentaIte
               alt="image"
               className="w-full object-cover h-[140px]"
               src={item.img}
+              priority={true}
             />
           </CardBody>
           <CardFooter className="text-small justify-between">

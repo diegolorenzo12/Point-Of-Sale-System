@@ -38,7 +38,9 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Authentication successful", token });
+    res
+      .status(200)
+      .json({ message: "Authentication successful", token, name: user.name });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -86,7 +88,9 @@ router.post("/signup", async (req, res) => {
         expiresIn: "1h",
       }
     );
-    res.status(201).json({ message: "User created successfully", token });
+    res
+      .status(201)
+      .json({ message: "User created successfully", token, name: user.name });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

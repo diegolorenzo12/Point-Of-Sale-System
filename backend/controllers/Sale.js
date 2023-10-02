@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
     const sales = await Sale.find().populate("items.product");
     res.json(sales);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch sales" });
   }
 });

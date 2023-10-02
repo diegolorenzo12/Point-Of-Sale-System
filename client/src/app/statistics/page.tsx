@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card } from '@nextui-org/react';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 interface SaleItem {
   _id: string;
@@ -52,19 +53,21 @@ const SoldProducts: React.FC = () => {
   }, [salesData]);
 
   return (
-    <div>
-      <h1 className='text-center font-bold mb-7'>Sold Products</h1>
-      <div className='w-1/4 flex flex-col flex-wrap'>
-        {Object.entries(groupedProducts).map(([productName, quantity]) => (
-          <div key={productName} className='flex flex-col justify-evenly flex-wrap'>
-            <Card className='p-7 m-3 bg-slate-200' >
-              <h2>Product Name: {productName}</h2>
-              <p>Quantity Sold: {quantity}</p>
-            </Card>
-          </div>
-        ))}
+    <ProtectedRoute>
+      <div>
+        <h1 className='text-center font-bold mb-7'>Sold Products</h1>
+        <div className='w-1/4 flex flex-col flex-wrap'>
+          {Object.entries(groupedProducts).map(([productName, quantity]) => (
+            <div key={productName} className='flex flex-col justify-evenly flex-wrap'>
+              <Card className='p-7 m-3 bg-slate-200' >
+                <h2>Product Name: {productName}</h2>
+                <p>Quantity Sold: {quantity}</p>
+              </Card>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 };
 
