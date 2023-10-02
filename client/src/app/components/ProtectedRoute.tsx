@@ -1,9 +1,10 @@
 "use client"
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useUser } from '../hooks/useUser';
 import { useEffect } from 'react';
 
-const ProtectedRoute = ({ children, router }) => {
+const ProtectedRoute = ({ children }) => {
+  const router = useRouter();
   const { userData, setUserData } = useUser();
   useEffect(() => {
     if (userData === undefined || userData === null || userData.isLoggedIn === undefined || !userData.isLoggedIn) {
