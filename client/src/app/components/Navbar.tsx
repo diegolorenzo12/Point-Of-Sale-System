@@ -12,32 +12,47 @@ import {
   Avatar
 } from "@nextui-org/react";
 import Image from 'next/image';
-import { useState } from 'react';
 import mangoLogo from "../assets/MangoLavandaLogo.png"
+import { useUser } from '../hooks/useUser';
 
 export default function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(false);
-    const menuItems = [
-      {
+  const {userData, setUserData} = useUser();
+  let loggedIn: boolean;
+  if(userData && userData.isLoggedIn){
+    loggedIn = userData.isLoggedIn;
+  }else{
+    loggedIn=false;
+  }
+  let name: string;
+  if(userData && userData.name){
+    name = userData.name;
+  }else{
+    name="";
+  }
+  const menuItems = [
+    {
         name: "Sell",
-        route: "/sell"
+        route: "/sell",
+        requireLogin: true
       },
        {
         name: "Edit Items",
-        route: "/edit"
+        route: "/edit",
+        requireLogin: true
       },
        {
         name: "Statistics",
-        route: "/statistics"
+        route: "/statistics",
+        requireLogin: true
       }
     ];
 
     let showLogin = (
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
+          <NavbarItem key="login" className="hidden lg:flex">
             <Link href="/login">Login</Link>
           </NavbarItem>
-          <NavbarItem>
+          <NavbarItem key="register">
             <Button as={Link} color="warning" href="/register" variant="flat">
               Sign Up
             </Button>
@@ -48,9 +63,8 @@ export default function Navbar() {
     if(loggedIn){
       showLogin= (
       <NavbarContent justify="end">
-           <Avatar name="Lorenzo" isBordered color="primary"></Avatar>
+           <Avatar name={name} isBordered color="primary"></Avatar>
         </NavbarContent>
-
       )
     }
 
@@ -79,7 +93,8 @@ export default function Navbar() {
         </NavbarBrand>
 
         {menuItems.map((item, index) => (
-          <NavbarItem key={`${item}-${index}`}>
+          (loggedIn === item.requireLogin? 
+          <NavbarItem key={index}>
             <Link
               className="w-full"
               color="foreground"
@@ -89,6 +104,7 @@ export default function Navbar() {
               {item.name}
             </Link>
           </NavbarItem>
+            :<React.Fragment key={index} />)
         ))}
       </NavbarContent>
 

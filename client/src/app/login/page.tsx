@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import logo from "../assets/MangoLavandaLogo.png";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie"
 import Image from 'next/image';
 import { useRouter } from "next/navigation"
 import axios from 'axios';
+import { useUser } from '../hooks/useUser';
 
 const Login = () => {
+  const {userData, setUserData} = useUser();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,12 +24,12 @@ const Login = () => {
         axios.defaults.withCredentials = true;
         Cookies.set('jwtToken', response.data.token, { expires: 7 }); 
         router.push('/sell'); 
+        setUserData({ name: response.data.name, email: email , isLoggedIn: true})
     } catch (error) {
         // Handle errors
         window.alert("incorrect")   
         console.error('Registration failed:', error);
     }
-
   };
 
   return (
@@ -61,7 +63,7 @@ const Login = () => {
         <Button 
           block 
           size="large" 
-          onClick={handleLogin}
+          onPress={handleLogin}
         >
           Login
         </Button>

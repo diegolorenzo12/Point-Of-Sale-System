@@ -29,7 +29,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/user", authMiddleware(), userRoute);
 app.use("/api/products", authMiddleware(), productRoute);
-app.use("/api/sales", authMiddleware(), saleRoute);
+app.use("/api/sales", saleRoute);
 app.use("/api/auth", authRoute);
 
 app.listen(port, () => {
