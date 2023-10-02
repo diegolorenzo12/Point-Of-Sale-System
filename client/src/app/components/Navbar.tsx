@@ -7,6 +7,10 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
   Link,
   Button,
   Avatar
@@ -14,6 +18,7 @@ import {
 import Image from 'next/image';
 import mangoLogo from "../assets/MangoLavandaLogo.png"
 import { useUser } from '../hooks/useUser';
+import { useRouter } from 'next/navigation';;
 
 export default function Navbar() {
   const {userData, setUserData} = useUser();
@@ -46,6 +51,16 @@ export default function Navbar() {
         requireLogin: true
       }
     ];
+    const router = useRouter();
+
+    const handleLogout = ()=>{
+      router.push('/');
+      setUserData({
+        name: 'Name',
+        email: 'email@example.com',
+        isLoggedIn: false,
+      })
+    }
 
     let showLogin = (
         <NavbarContent justify="end">
@@ -63,7 +78,18 @@ export default function Navbar() {
     if(loggedIn){
       showLogin= (
       <NavbarContent justify="end">
-           <Avatar name={name} isBordered color="primary"></Avatar>
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar name={name} isBordered color="primary"></Avatar>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat" disabledKeys={["profile"]}>
+              <DropdownItem key="profile" className="h-14 gap-2">
+              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">{name}</p>
+            </DropdownItem>
+            <DropdownItem key="settings" onPress={handleLogout}>LogOut</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </NavbarContent>
       )
     }
